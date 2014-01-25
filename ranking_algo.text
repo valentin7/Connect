@@ -1,0 +1,34 @@
+//Sudo code for the ranking algorithm
+
+
+
+-(NSDict) compare(list of other users, user_object){
+
+
+
+//removes the first letter if it's a space
+for word in mywords:
+	if word[0] == " ":
+		current keyword = [string substringFromIndex:1]
+
+
+//compares the user to 
+
+dict_ranking = {"USER_ID": rank, "USER_ID": rank}
+
+for each_keyword in our_user_list:
+  for each_object in database:
+    other_person_array = StringToArray(each_object.keyword());
+    for each_person_keyword in other_person_array:
+			if each_keyword == other_person_keyword:
+				dict_ranking[USER_ID] += 1;
+}
+
+-(NSArray) StringToArray(NSString keywords){
+
+    //Takes a string
+    NSString *myString = keywords;
+    
+    //separates it into keywords by commas
+    NSArray *myWords = [myString componentsSeparatedByString:@","];
+}
