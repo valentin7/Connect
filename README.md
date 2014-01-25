@@ -1,13 +1,12 @@
 Connect
 ---------------------------
 
-Connect is a tool for connecting with people that are on the same wifi network as you.
+Connect is an iOS app that facilitates quick networking with the people around you. It is designed with first encounters at conventions, business meetings, hackathons, or similar gatherings in mind.
+
+The app displays a list of users on the same Wi-Fi network, complete with a picture and a list of interests for each user. Need to find graphic designer at a hackathon, or cardiologist at a medical conference? Connect makes it easy.
+
 
 =======
-
-Connect connects real world people that are close in location. It is a great way to "smart network" which means that you know people's names and interests before you approach them. It allows you to avoid the awkward small talk and jump to discussions on interests you're both passionate about.
-
-Connect displays a list of people on the same wifi network as you. It pulls your linked in data and allows you to add your own interests. It becomes a great way to find people based on their interests. For example you can find a graphic designer at a hackathon and a business major in class. 
 
 
 
