@@ -17,6 +17,7 @@
 @implementation ProfileTabView
 {
     UIImage *linkedInImage;
+    NSString *avatarURL;
 }
 
 @synthesize button, name, headline, oAuthLoginView, 
@@ -45,7 +46,7 @@
     // We're going to do these calls serially just for easy code reading.
     // They can be done asynchronously
     // Get the profile, then the network updates
-    [self profileApiCall];
+    [self profileImageApiCall];
 	
 }
 
@@ -89,25 +90,32 @@
         self.button.hidden = YES;
         self.collectionView.hidden = NO;
         
-        // Register current user's presence on Network with SSID
-        BTIUser *user = [BTIUser object];
-        user.name = name.text;
-        user.status = headline.text;
-        [user saveAsCurrentUser];
-        NSLog(@"%@", [[self fetchSSIDInfo] objectForKey:@"SSID"]);
-        sleep(3);
-        [user registerMyPresenceOn:[[self fetchSSIDInfo] objectForKey:@"SSID"]];
-        
+        if ([BTIUser hasCurrentUser]) {
+            [BTIUser getCurrentUserInBackgroundWithBlock:^(BTIUser *user, NSError *error) {
+                [user registerMyPresenceOn:[[self fetchSSIDInfo] objectForKey:@"SSID"]];
+            }];
+        } else {
+            // Register current user's presence on Network with SSID
+            BTIUser *user = [BTIUser object];
+            user.name = name.text;
+            user.title = headline.text;
+            
+            user.avatarURL = avatarURL;
+            
+            [user saveAsCurrentUserInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                [user registerMyPresenceOn:[[self fetchSSIDInfo] objectForKey:@"SSID"]];
+            }];
+        }
     }
     
     // The next thing we want to do is to retrieve the profile image
-    [self profileImageApiCall];
+    [self networkApiCall];
 }
 
 - (void)profileImageApiCall
 {
-    NSURL *url = [NSURL URLWithString:@"http://api.linkedin.com/v1/people/~/picture-urls::(original)"];
-    
+   NSURL *url = [NSURL URLWithString:@"http://api.linkedin.com/v1/people/~/picture-urls::(original)"];
+
     OAMutableURLRequest *request =
     [[OAMutableURLRequest alloc] initWithURL:url
                                     consumer:oAuthLoginView.consumer
@@ -135,14 +143,28 @@
     if ( profile )
     {
         NSArray *imageArray = [profile objectForKey:@"values"];
+        
         NSString *url = [imageArray objectAtIndex:0];
+        avatarURL = url;
+        
         NSURL *imageURL = [NSURL URLWithString:url];
         NSData *imageData = [[NSData alloc] initWithContentsOfURL:imageURL];
         UIImage *image = [UIImage imageWithData:imageData];
         UIImage *resizedImage = [image resizedImageToWidth:132 andHeight:132];
         
         linkedInImage = resizedImage;
-        [self.collectionView reloadData];
+        
+        // fetch all users over the same network
+        [BTIUser findUsersPresentOn:[[self fetchSSIDInfo] objectForKey:@"SSID"] inBackgroundWithBlock:^(NSSet *users, NSError *error) {
+            [BTIUser getCurrentUserInBackgroundWithBlock:^(BTIUser *user, NSError *error) {
+                
+                NSMutableSet *mutableUsers = [NSMutableSet setWithSet:users];
+                [mutableUsers removeObject:user];
+                self.usersOutThere = [[NSMutableArray alloc] initWithArray:[mutableUsers allObjects]];
+                [self.collectionView reloadData];
+            }];
+
+        }];
         
         [self.imageView setImage:resizedImage];
         self.imageView.layer.cornerRadius = 33;
@@ -150,7 +172,7 @@
     }
     
     // The next thing we want to do is call the network updates
-    [self networkApiCall];
+    [self profileApiCall];
     
 }
 
@@ -306,7 +328,7 @@
 #pragma mark - UICollectionView Datasource
 // 1
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
-    return 4;
+    return [self.usersOutThere count];
 }
 // 2
 - (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView {
@@ -316,12 +338,24 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ProfileCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"ProfileCell" forIndexPath:indexPath];
     
-    cell.nameLabel.text = @"Paul Wong";
-    [cell.profileImageView setImage:linkedInImage];
+    BTIUser *user = [self.usersOutThere objectAtIndex:indexPath.row];
+    
+    cell.nameLabel.text = user.name;
+    
+    NSString *url = user.avatarURL;
+    NSURL *imageURL = [NSURL URLWithString:url];
+    
+    // dispatch_async(<#dispatch_queue_t queue#>, <#^(void)block#>)
+    NSData *imageData = [[NSData alloc] initWithContentsOfURL:imageURL];
+    UIImage *image = [UIImage imageWithData:imageData];
+    UIImage *resizedImage = [image resizedImageToWidth:132 andHeight:132];
+    [cell.profileImageView setImage:resizedImage];
+    
     cell.profileImageView.layer.cornerRadius = 4.0f;
     cell.profileImageView.layer.masksToBounds = YES;
-    cell.titleLabel.text = @"Student Again!";
-    cell.keywordsLabel.text = @"Obj-C, Ruby on Rails Blah Blah Blah";
+    
+    cell.titleLabel.text = user.title;
+    cell.keywordsLabel.text = user.keywords[0];
     ///[cell.keywordsLabel sizeToFit];
     cell.keywordsLabel.textAlignment = NSTextAlignmentCenter;
      

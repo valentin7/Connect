@@ -13,7 +13,7 @@
 @property (strong) NSString *name;
 @property (strong) NSString *avatarURL;
 @property (strong) NSArray *keywords;
-@property (strong) NSString *status;
+@property (strong) NSString *title;
 
 /* Get all the users who have recently been present on the given network SSID.
  *

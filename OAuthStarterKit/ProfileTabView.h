@@ -29,6 +29,7 @@
 @property (nonatomic, retain) IBOutlet UILabel *updateStatusLabel;
 @property (nonatomic, retain) IBOutlet UITextField *statusTextView;
 @property (nonatomic, retain) OAuthLoginView *oAuthLoginView;
+@property (nonatomic, strong) NSMutableArray *usersOutThere;
 
 
 - (IBAction)button_TouchUp:(UIButton *)sender;

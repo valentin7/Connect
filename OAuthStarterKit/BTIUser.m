@@ -112,7 +112,7 @@ static NSString *kUserDefaultsUserIDKey = @"parseUserID";
 @dynamic name;
 @dynamic avatarURL;
 @dynamic keywords;
-@dynamic status;
+@dynamic title;
 
 + (NSString *)parseClassName
 {
