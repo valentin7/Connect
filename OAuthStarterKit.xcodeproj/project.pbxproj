@@ -58,6 +58,11 @@
 		D41A6926189367340050831B /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A6925189367340050831B /* UIImage+Resize.m */; };
 		D41A6928189371BC0050831B /* iPhoneStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D41A6927189371BC0050831B /* iPhoneStoryboard.storyboard */; };
 		D41A692B18937D8A0050831B /* ProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A692A18937D8A0050831B /* ProfileCell.m */; };
+		D4826B4B18944C9C00D51AA5 /* wifi_connect_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = D4826B4A18944C9C00D51AA5 /* wifi_connect_bar.png */; };
+		D4826B4D18944CE600D51AA5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4826B4C18944CE600D51AA5 /* Images.xcassets */; };
+		D4826B5018944DEF00D51AA5 /* wifi_connect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D4826B4E18944DEF00D51AA5 /* wifi_connect@2x.png */; };
+		D4826B5118944DEF00D51AA5 /* wifi_connect.png in Resources */ = {isa = PBXBuildFile; fileRef = D4826B4F18944DEF00D51AA5 /* wifi_connect.png */; };
+		D4826B531894522900D51AA5 /* linkedin_button_double.png in Resources */ = {isa = PBXBuildFile; fileRef = D4826B521894522900D51AA5 /* linkedin_button_double.png */; };
 		D4A24DC11893AD260055FFFB /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A24DAC1893AD260055FFFB /* AFHTTPClient.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D4A24DC21893AD260055FFFB /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A24DAE1893AD260055FFFB /* AFHTTPRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D4A24DC31893AD260055FFFB /* AFImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A24DB01893AD260055FFFB /* AFImageCache.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -73,7 +78,6 @@
 		D4AF0FBD18938CC700E57C8A /* border_profile.png in Resources */ = {isa = PBXBuildFile; fileRef = D4AF0FA518938CC700E57C8A /* border_profile.png */; };
 		D4AF0FBE18938CC700E57C8A /* join_not_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = D4AF0FA618938CC700E57C8A /* join_not_pressed.png */; };
 		D4AF0FBF18938CC700E57C8A /* join_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = D4AF0FA718938CC700E57C8A /* join_pressed.png */; };
-		D4AF0FC018938CC700E57C8A /* wifi_connect_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = D4AF0FA818938CC700E57C8A /* wifi_connect_bar.png */; };
 		D4AF0FC118938CC700E57C8A /* sign_in_backgroud_image.png in Resources */ = {isa = PBXBuildFile; fileRef = D4AF0FAA18938CC700E57C8A /* sign_in_backgroud_image.png */; };
 		D4AF0FC218938CC700E57C8A /* image_button.png in Resources */ = {isa = PBXBuildFile; fileRef = D4AF0FAB18938CC700E57C8A /* image_button.png */; };
 		D4AF0FC318938CC700E57C8A /* linked_in.png in Resources */ = {isa = PBXBuildFile; fileRef = D4AF0FAC18938CC700E57C8A /* linked_in.png */; };
@@ -178,6 +182,11 @@
 		D41A6927189371BC0050831B /* iPhoneStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iPhoneStoryboard.storyboard; sourceTree = "<group>"; };
 		D41A692918937D8A0050831B /* ProfileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileCell.h; sourceTree = "<group>"; };
 		D41A692A18937D8A0050831B /* ProfileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileCell.m; sourceTree = "<group>"; };
+		D4826B4A18944C9C00D51AA5 /* wifi_connect_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wifi_connect_bar.png; sourceTree = "<group>"; };
+		D4826B4C18944CE600D51AA5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		D4826B4E18944DEF00D51AA5 /* wifi_connect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wifi_connect@2x.png"; sourceTree = "<group>"; };
+		D4826B4F18944DEF00D51AA5 /* wifi_connect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wifi_connect.png; sourceTree = "<group>"; };
+		D4826B521894522900D51AA5 /* linkedin_button_double.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = linkedin_button_double.png; sourceTree = "<group>"; };
 		D4A24DAB1893AD260055FFFB /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		D4A24DAC1893AD260055FFFB /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		D4A24DAD1893AD260055FFFB /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -205,7 +214,6 @@
 		D4AF0FA518938CC700E57C8A /* border_profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = border_profile.png; sourceTree = "<group>"; };
 		D4AF0FA618938CC700E57C8A /* join_not_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = join_not_pressed.png; sourceTree = "<group>"; };
 		D4AF0FA718938CC700E57C8A /* join_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = join_pressed.png; sourceTree = "<group>"; };
-		D4AF0FA818938CC700E57C8A /* wifi_connect_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wifi_connect_bar.png; sourceTree = "<group>"; };
 		D4AF0FAA18938CC700E57C8A /* sign_in_backgroud_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sign_in_backgroud_image.png; sourceTree = "<group>"; };
 		D4AF0FAB18938CC700E57C8A /* image_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_button.png; sourceTree = "<group>"; };
 		D4AF0FAC18938CC700E57C8A /* linked_in.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = linked_in.png; sourceTree = "<group>"; };
@@ -304,6 +312,7 @@
 				659410B01353A25700826837 /* OAuthStarterKitAppDelegate.h */,
 				659410B11353A25700826837 /* OAuthStarterKitAppDelegate.m */,
 				659410B31353A25700826837 /* MainWindow.xib */,
+				D4826B4C18944CE600D51AA5 /* Images.xcassets */,
 				659410A81353A25700826837 /* Supporting Files */,
 			);
 			path = OAuthStarterKit;
@@ -459,6 +468,10 @@
 		D4AF0FA118938CC700E57C8A /* raw_assets */ = {
 			isa = PBXGroup;
 			children = (
+				D4826B521894522900D51AA5 /* linkedin_button_double.png */,
+				D4826B4E18944DEF00D51AA5 /* wifi_connect@2x.png */,
+				D4826B4F18944DEF00D51AA5 /* wifi_connect.png */,
+				D4826B4A18944C9C00D51AA5 /* wifi_connect_bar.png */,
 				D4BD204D189448690024F02E /* top_blank_bar.png */,
 				D4AF0FA218938CC700E57C8A /* connect_app_asset */,
 				D4AF0FB718938CC700E57C8A /* connect_icon.png */,
@@ -484,7 +497,6 @@
 				D4AF0FA518938CC700E57C8A /* border_profile.png */,
 				D4AF0FA618938CC700E57C8A /* join_not_pressed.png */,
 				D4AF0FA718938CC700E57C8A /* join_pressed.png */,
-				D4AF0FA818938CC700E57C8A /* wifi_connect_bar.png */,
 			);
 			path = a_home_screen;
 			sourceTree = "<group>";
@@ -583,6 +595,7 @@
 				D41A6923189356070050831B /* Default-568h@2x.png in Resources */,
 				D41A6928189371BC0050831B /* iPhoneStoryboard.storyboard in Resources */,
 				D4AF0FC418938CC700E57C8A /* linkedin_button.png in Resources */,
+				D4826B5118944DEF00D51AA5 /* wifi_connect.png in Resources */,
 				659410B51353A25700826837 /* MainWindow.xib in Resources */,
 				D4AF0FCF18938CC700E57C8A /* connect_list.png in Resources */,
 				D4AF0FC118938CC700E57C8A /* sign_in_backgroud_image.png in Resources */,
@@ -592,15 +605,18 @@
 				659410F21353A39900826837 /* linkedInBluebutton.png in Resources */,
 				D4AF0FCD18938CC700E57C8A /* connect_icon.png in Resources */,
 				D4AF0FCC18938CC700E57C8A /* similar_users.png in Resources */,
-				D4AF0FC018938CC700E57C8A /* wifi_connect_bar.png in Resources */,
+				D4826B4D18944CE600D51AA5 /* Images.xcassets in Resources */,
 				D4AF0FBF18938CC700E57C8A /* join_pressed.png in Resources */,
 				D4AF0FBC18938CC700E57C8A /* home_background_image.png in Resources */,
+				D4826B4B18944C9C00D51AA5 /* wifi_connect_bar.png in Resources */,
 				D4AF0FC318938CC700E57C8A /* linked_in.png in Resources */,
 				D4AF0FCB18938CC700E57C8A /* dividing_line.png in Resources */,
 				D4AF0FC618938CC700E57C8A /* ok_button_pressed.png in Resources */,
 				659410F31353A39900826837 /* linkedInBluebutton-highlight.png in Resources */,
+				D4826B5018944DEF00D51AA5 /* wifi_connect@2x.png in Resources */,
 				D4AF0FCE18938CC700E57C8A /* connect_home.png in Resources */,
 				D4AF0FC518938CC700E57C8A /* ok_button_not_pressed.png in Resources */,
+				D4826B531894522900D51AA5 /* linkedin_button_double.png in Resources */,
 				659411171353AE6800826837 /* Icon-72.png in Resources */,
 				D4AF0FD018938CC700E57C8A /* connect_signin.png in Resources */,
 				659411181353AE6800826837 /* Icon.png in Resources */,
@@ -718,6 +734,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -740,6 +758,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (

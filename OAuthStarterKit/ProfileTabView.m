@@ -168,7 +168,20 @@
                      [profile objectForKey:@"firstName"], [profile objectForKey:@"lastName"]];
         headline.text = [profile objectForKey:@"headline"];
         
+        
+        self.navigationItem.titleView = nil;
         self.navigationItem.leftBarButtonItem = self.logoutButton;
+        self.navigationItem.rightBarButtonItem = self.refreshButton;
+        
+        /*
+        self.navigationItem.titleView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+        UILabel *wifiLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 320, 40)];
+        wifiLabel.text = [NSString stringWithFormat:@"CONNECT"];
+        wifiLabel.textAlignment = NSTextAlignmentCenter;
+        wifiLabel.font = [UIFont fontWithName:@"Helvetica" size:14];
+        wifiLabel.textColor = [UIColor whiteColor];
+        [self.navigationItem.titleView addSubview:wifiLabel];
+         */
         
         if ([BTIUser hasCurrentUser]) {
             [BTIUser getCurrentUserInBackgroundWithBlock:^(BTIUser *user, NSError *error) {
@@ -388,9 +401,21 @@
     self.editInterestsButton.hidden = YES;
     [self setNeedsStatusBarAppearanceUpdate];
     
+    //[self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"wifi_connect"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top_blank_bar"] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"wifi_connect_bar"] forBarMetrics:UIBarMetricsDefault];
-
+    
+    //UIImage *resizedImage = [[UIImage imageNamed:@"wifi_connect_bar"] resizedImageToWidth:340 andHeight:44];
+    //self.navigationItem.titleView = [[UIImageView alloc] initWithImage:resizedImage];
+    self.navigationItem.titleView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    
+    UILabel *wifiLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, 320, 40)];
+    
+    NSString *wifiInfo = [[self fetchSSIDInfo] objectForKey:@"SSID"];
+    wifiLabel.text = [NSString stringWithFormat:@"WiFi Connected To:   %@", wifiInfo];
+    wifiLabel.textAlignment = NSTextAlignmentCenter;
+    wifiLabel.font = [UIFont fontWithName:@"Helvetica" size:12];
+    wifiLabel.textColor = [UIColor whiteColor];
+    [self.navigationItem.titleView addSubview:wifiLabel];
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
