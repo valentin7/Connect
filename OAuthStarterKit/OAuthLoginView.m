@@ -245,7 +245,8 @@
     [super viewDidLoad];
     [self initLinkedInApi];
     [addressBar setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
-    }
+    addressBar.hidden = YES;
+}
 
 - (void)viewDidAppear:(BOOL)animated
 {

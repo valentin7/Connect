@@ -30,6 +30,8 @@
     [BTIPresence registerSubclass];
     [Parse setApplicationId:@"6QTvjj4OBiY7bfMPt9AZUlqpddF4rAwW3PSlupIs"
                   clientKey:@"czIGDRrfEaEM1xx7TG1nsIGfkfFCKacqLbbb7sN7"];
+    /*[Parse setApplicationId:@"HH4etQ3NJH45nM2hAFaxAtovK5J2A9mifAF1hJmQ"
+                  clientKey:@"2JA7S9BjEzGOjT4HEBhopPQ9Xo8UX4jNWwcKHN0Q"]; */
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 }
 

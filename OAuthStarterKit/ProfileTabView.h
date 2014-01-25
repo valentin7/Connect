@@ -14,8 +14,9 @@
 #import "OAMutableURLRequest.h"
 #import "OADataFetcher.h"
 #import "OATokenManager.h"
+#import "MBProgressHUD.h"
 
-@interface ProfileTabView : UIViewController <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIAlertViewDelegate>
+@interface ProfileTabView : UIViewController <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIAlertViewDelegate, MBProgressHUDDelegate>
 
 @property (retain, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (retain, nonatomic) IBOutlet UIBarButtonItem *logoutButton;
@@ -30,7 +31,7 @@
 @property (nonatomic, retain) IBOutlet UITextField *statusTextView;
 @property (nonatomic, retain) OAuthLoginView *oAuthLoginView;
 @property (nonatomic, strong) NSMutableArray *usersOutThere;
-
+@property (nonatomic, strong) NSMutableArray *userImages;
 
 - (IBAction)button_TouchUp:(UIButton *)sender;
 - (void)profileApiCall;

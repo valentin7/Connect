@@ -92,6 +92,7 @@
         
         if ([BTIUser hasCurrentUser]) {
             [BTIUser getCurrentUserInBackgroundWithBlock:^(BTIUser *user, NSError *error) {
+                self.status.text = user.keywords[0];
                 [user registerMyPresenceOn:[[self fetchSSIDInfo] objectForKey:@"SSID"]];
             }];
         } else {
@@ -100,6 +101,7 @@
             user.name = name.text;
             user.title = headline.text;
             user.avatarURL = avatarURL;
+            user.keywords = [NSArray arrayWithObjects:@"Test!!!", nil];
             
             [user saveAsCurrentUserInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
                 [user registerMyPresenceOn:[[self fetchSSIDInfo] objectForKey:@"SSID"]];
@@ -160,9 +162,36 @@
             [BTIUser getCurrentUserInBackgroundWithBlock:^(BTIUser *user, NSError *error) {
                 currentUser = user;
                 NSMutableSet *mutableUsers = [NSMutableSet setWithSet:users];
-                [mutableUsers removeObject:user];
+                
+                // Don't display myself...  :)
+                BTIUser *userToRemove;
+                if (currentUser != nil) {
+                    for (BTIUser *user in mutableUsers) {
+                        if ([user.objectId isEqualToString:currentUser.objectId]) {
+                            userToRemove = user;
+                        }
+                    }
+                    [mutableUsers removeObject:userToRemove];
+                }
+                
                 self.usersOutThere = [[NSMutableArray alloc] initWithArray:[mutableUsers allObjects]];
-                [self.collectionView reloadData];
+                
+                // Add MBProgressHUD as indicator!
+                MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+                
+                HUD.delegate = self;
+                HUD.labelText = @"Loading...";
+                
+                [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+                    // Do something...
+                    [self loadImagesIntoArray];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [MBProgressHUD hideHUDForView:self.view animated:YES];
+                        [self.collectionView reloadData];
+                    });
+                });
+                
             }];
 
         }];
@@ -175,6 +204,19 @@
     // The next thing we want to do is call the network updates
     [self profileApiCall];
     
+}
+
+- (void)loadImagesIntoArray
+{
+    for (BTIUser *user in self.usersOutThere) {
+        NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:user.avatarURL]];
+        UIImage *image = [UIImage imageWithData:imageData];
+        if (image != nil) {
+            [self.userImages addObject:image];
+        } else {
+            [self.userImages addObject:linkedInImage];
+        }
+    }
 }
 
 - (void)profileImageApiCallResult:(OAServiceTicket *)ticket didFail:(NSData *)error
@@ -209,23 +251,33 @@
                           @"Done",nil];
     alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     UITextField *textField = [alertView textFieldAtIndex:0];
-    textField.text = [currentUser.keywords objectAtIndex:0];
-    //textField.text = @"Test Keywords...";
-    [alertView show];
+    
+    [BTIUser getCurrentUserInBackgroundWithBlock:^(BTIUser *user, NSError *error) {
+        currentUser = user;
+        NSLog(@"current user: %@", currentUser.keywords);
+        textField.text = [currentUser.keywords objectAtIndex:0];
+        //textField.text = @"Test Keywords...";
+        [alertView show];
+    }];
+    
+
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
+        
         // do nothing...
+        
     } else if (buttonIndex == 1) {
+        
         // update keywords
         NSString *currentKeyword = [alertView textFieldAtIndex:0].text;
         NSMutableArray *mutableKeywords = [currentUser.keywords mutableCopy];
         [mutableKeywords replaceObjectAtIndex:0 withObject:currentKeyword];
         currentUser.keywords = mutableKeywords;
         [currentUser saveAsCurrentUserInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            // Maybe we need to register its presence again?!
+            // do nothing
         }];
         
     }
@@ -328,6 +380,8 @@
     
     //[self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"ProfileCell"];
     
+    self.userImages = [[NSMutableArray alloc] initWithCapacity:10];
+    
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -366,41 +420,23 @@
 }
 // 3
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
     ProfileCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"ProfileCell" forIndexPath:indexPath];
     
     BTIUser *user = [self.usersOutThere objectAtIndex:indexPath.row];
     
-    cell.nameLabel.text = user.name;
+    [cell.profileImageView setImage:[self.userImages objectAtIndex:indexPath.row]];
     
-    NSString *url = user.avatarURL;
-    NSURL *imageURL = [NSURL URLWithString:url];
-    
-    [cell.profileImageView setImageWithURL:imageURL];
-    
-    /*
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-        //Background Thread
-        NSData *imageData = [[NSData alloc] initWithContentsOfURL:imageURL];
-        UIImage *image = [UIImage imageWithData:imageData];
-        UIImage *resizedImage = [image resizedImageToWidth:132 andHeight:132];
-        dispatch_async(dispatch_get_main_queue(), ^(void){
-            //Run UI Updates
-            [cell.profileImageView setImage:resizedImage];
-     
-        });
-    });
-     */
-
     cell.profileImageView.layer.cornerRadius = 4.0f;
     cell.profileImageView.layer.masksToBounds = YES;
-    
+    cell.nameLabel.text = user.name;
     cell.titleLabel.text = user.title;
     cell.keywordsLabel.text = user.keywords[0];
     ///[cell.keywordsLabel sizeToFit];
     cell.keywordsLabel.textAlignment = NSTextAlignmentCenter;
-    
     cell.backgroundColor = [UIColor lightGrayColor];
     return cell;
+
 }
 
 #pragma mark – UICollectionViewDelegateFlowLayout

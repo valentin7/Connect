@@ -14,7 +14,7 @@
 + (NSDate *)validIfUpdatedAfter
 {
     //presence
-    return [NSDate dateWithTimeIntervalSinceNow:-60*1000];
+    return [NSDate dateWithTimeIntervalSinceNow:-60*10000];
 }
 
 #pragma mark - Parse stuff

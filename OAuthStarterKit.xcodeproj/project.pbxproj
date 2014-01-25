@@ -90,6 +90,7 @@
 		D4AF0FCE18938CC700E57C8A /* connect_home.png in Resources */ = {isa = PBXBuildFile; fileRef = D4AF0FB918938CC700E57C8A /* connect_home.png */; };
 		D4AF0FCF18938CC700E57C8A /* connect_list.png in Resources */ = {isa = PBXBuildFile; fileRef = D4AF0FBA18938CC700E57C8A /* connect_list.png */; };
 		D4AF0FD018938CC700E57C8A /* connect_signin.png in Resources */ = {isa = PBXBuildFile; fileRef = D4AF0FBB18938CC700E57C8A /* connect_signin.png */; };
+		D4BD204C1893ECC70024F02E /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BD204B1893ECC70024F02E /* MBProgressHUD.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -220,6 +221,8 @@
 		D4AF0FB918938CC700E57C8A /* connect_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = connect_home.png; sourceTree = "<group>"; };
 		D4AF0FBA18938CC700E57C8A /* connect_list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = connect_list.png; sourceTree = "<group>"; };
 		D4AF0FBB18938CC700E57C8A /* connect_signin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = connect_signin.png; sourceTree = "<group>"; };
+		D4BD204A1893ECC70024F02E /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		D4BD204B1893ECC70024F02E /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -357,6 +360,8 @@
 				659410BF1353A36600826837 /* ProfileTabView.h */,
 				D41A6924189367340050831B /* UIImage+Resize.h */,
 				D41A6925189367340050831B /* UIImage+Resize.m */,
+				D4BD204A1893ECC70024F02E /* MBProgressHUD.h */,
+				D4BD204B1893ECC70024F02E /* MBProgressHUD.m */,
 				659410C21353A39900826837 /* OAuthLoginView.xib */,
 				659410C31353A39900826837 /* OAuthLoginView.m */,
 				659410C41353A39900826837 /* OAuthLoginView.h */,
@@ -617,6 +622,7 @@
 				91BC215B1893812E00D75B4E /* BTIUser.m in Sources */,
 				659410E61353A39900826837 /* OATokenManager.m in Sources */,
 				659410E71353A39900826837 /* OAToken.m in Sources */,
+				D4BD204C1893ECC70024F02E /* MBProgressHUD.m in Sources */,
 				659410E81353A39900826837 /* OAServiceTicket.m in Sources */,
 				D4A24DC21893AD260055FFFB /* AFHTTPRequestOperation.m in Sources */,
 				659410E91353A39900826837 /* OARequestParameter.m in Sources */,
