@@ -36,7 +36,6 @@
                                                  name:@"loginViewDidFinish" 
                                                object:oAuthLoginView];
     
-    //[self presentModalViewController:oAuthLoginView animated:YES];
     [self presentViewController:oAuthLoginView animated:YES completion:nil];
 }
 
@@ -52,71 +51,10 @@
 	
 }
 
-- (void)profileApiCall
-{
-    NSURL *url = [NSURL URLWithString:@"http://api.linkedin.com/v1/people/~"];
-    
-    OAMutableURLRequest *request = 
-    [[OAMutableURLRequest alloc] initWithURL:url
-                                    consumer:oAuthLoginView.consumer
-                                       token:oAuthLoginView.accessToken
-                                    callback:nil
-                           signatureProvider:nil];
-    
-    [request setValue:@"json" forHTTPHeaderField:@"x-li-format"];
-    
-    OADataFetcher *fetcher = [[OADataFetcher alloc] init];
-    [fetcher fetchDataWithRequest:request
-                         delegate:self
-                didFinishSelector:@selector(profileApiCallResult:didFinish:)
-                  didFailSelector:@selector(profileApiCallResult:didFail:)];    
-    
-}
-
-- (void)profileApiCallResult:(OAServiceTicket *)ticket didFinish:(NSData *)data 
-{
-    NSString *responseBody = [[NSString alloc] initWithData:data
-                                                   encoding:NSUTF8StringEncoding];
-    
-    NSDictionary *profile = [responseBody objectFromJSONString];
-
-    if ( profile )
-    {
-        name.text = [[NSString alloc] initWithFormat:@"%@ %@",
-                     [profile objectForKey:@"firstName"], [profile objectForKey:@"lastName"]];
-        headline.text = [profile objectForKey:@"headline"];
-        
-        self.name.hidden = NO;
-        self.headline.hidden = NO;
-        self.navigationItem.leftBarButtonItem = self.logoutButton;
-        
-        if ([BTIUser hasCurrentUser]) {
-            [BTIUser getCurrentUserInBackgroundWithBlock:^(BTIUser *user, NSError *error) {
-                self.status.text = user.keywords[0];
-                [user registerMyPresenceOn:[[self fetchSSIDInfo] objectForKey:@"SSID"]];
-            }];
-        } else {
-            // Register current user's presence on Network with SSID
-            BTIUser *user = [BTIUser object];
-            user.name = name.text;
-            user.title = headline.text;
-            user.avatarURL = avatarURL;
-            user.keywords = [NSArray arrayWithObjects:@"Test!!!", nil];
-            
-            [user saveAsCurrentUserInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                [user registerMyPresenceOn:[[self fetchSSIDInfo] objectForKey:@"SSID"]];
-            }];
-        }
-    }
-    
-    // The next thing we want to do is to retrieve the profile image
-    [self networkApiCall];
-}
-
 - (void)profileImageApiCall
 {
-   NSURL *url = [NSURL URLWithString:@"http://api.linkedin.com/v1/people/~/picture-urls::(original)"];
-
+    NSURL *url = [NSURL URLWithString:@"http://api.linkedin.com/v1/people/~/picture-urls::(original)"];
+    
     OAMutableURLRequest *request =
     [[OAMutableURLRequest alloc] initWithURL:url
                                     consumer:oAuthLoginView.consumer
@@ -176,6 +114,15 @@
                 
                 self.usersOutThere = [[NSMutableArray alloc] initWithArray:[mutableUsers allObjects]];
                 
+                /*
+                NSMutableArray *mutableArray = [self updateUsersAlgorithm];
+                for (NSDictionary *dict in mutableArray) {
+                    for (NSString* key in [dict allKeys]) {
+                        NSLog(@"key: %@, value: %@", key, [dict objectForKey:key]);
+                    }
+                }
+                 */
+                
                 // Add MBProgressHUD as indicator!
                 MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
                 
@@ -193,7 +140,7 @@
                 });
                 
             }];
-
+            
         }];
         
         [self.imageView setImage:resizedImage];
@@ -204,6 +151,74 @@
     // The next thing we want to do is call the network updates
     [self profileApiCall];
     
+}
+
+- (void)profileApiCall
+{
+    NSURL *url = [NSURL URLWithString:@"http://api.linkedin.com/v1/people/~"];
+    
+    OAMutableURLRequest *request = 
+    [[OAMutableURLRequest alloc] initWithURL:url
+                                    consumer:oAuthLoginView.consumer
+                                       token:oAuthLoginView.accessToken
+                                    callback:nil
+                           signatureProvider:nil];
+    
+    [request setValue:@"json" forHTTPHeaderField:@"x-li-format"];
+    
+    OADataFetcher *fetcher = [[OADataFetcher alloc] init];
+    [fetcher fetchDataWithRequest:request
+                         delegate:self
+                didFinishSelector:@selector(profileApiCallResult:didFinish:)
+                  didFailSelector:@selector(profileApiCallResult:didFail:)];    
+    
+}
+
+- (void)profileApiCallResult:(OAServiceTicket *)ticket didFinish:(NSData *)data 
+{
+    NSString *responseBody = [[NSString alloc] initWithData:data
+                                                   encoding:NSUTF8StringEncoding];
+    
+    NSDictionary *profile = [responseBody objectFromJSONString];
+
+    if ( profile )
+    {
+        name.text = [[NSString alloc] initWithFormat:@"%@ %@",
+                     [profile objectForKey:@"firstName"], [profile objectForKey:@"lastName"]];
+        headline.text = [profile objectForKey:@"headline"];
+        
+        self.navigationItem.leftBarButtonItem = self.logoutButton;
+        
+        if ([BTIUser hasCurrentUser]) {
+            [BTIUser getCurrentUserInBackgroundWithBlock:^(BTIUser *user, NSError *error) {
+                
+                self.status.text = user.keywords[0];
+                
+                self.addInterestsButton.hidden = [[self.status.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0 ? NO : YES;
+                self.editInterestsButton.hidden = !self.addInterestsButton.hidden;
+                
+                [user registerMyPresenceOn:[[self fetchSSIDInfo] objectForKey:@"SSID"]];
+            }];
+        } else {
+            // Register current user's presence on Network with SSID
+            BTIUser *user = [BTIUser object];
+            user.name = name.text;
+            user.title = headline.text;
+            user.avatarURL = avatarURL;
+            
+            self.status.text = user.keywords[0];
+            
+            self.addInterestsButton.hidden = [[self.status.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0 ? NO : YES;
+            self.editInterestsButton.hidden = !self.addInterestsButton.hidden;
+            
+            [user saveAsCurrentUserInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                [user registerMyPresenceOn:[[self fetchSSIDInfo] objectForKey:@"SSID"]];
+            }];
+        }
+    }
+    
+    // The next thing we want to do is to retrieve the profile image
+    [self networkApiCall];
 }
 
 - (void)loadImagesIntoArray
@@ -251,14 +266,9 @@
                           @"Done",nil];
     alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     UITextField *textField = [alertView textFieldAtIndex:0];
-    
-    [BTIUser getCurrentUserInBackgroundWithBlock:^(BTIUser *user, NSError *error) {
-        currentUser = user;
-        NSLog(@"current user: %@", currentUser.keywords);
-        textField.text = [currentUser.keywords objectAtIndex:0];
-        //textField.text = @"Test Keywords...";
-        [alertView show];
-    }];
+     
+    textField.text = self.status.text;
+    [alertView show];
     
 
 }
@@ -273,11 +283,35 @@
         
         // update keywords
         NSString *currentKeyword = [alertView textFieldAtIndex:0].text;
-        NSMutableArray *mutableKeywords = [currentUser.keywords mutableCopy];
-        [mutableKeywords replaceObjectAtIndex:0 withObject:currentKeyword];
+        NSMutableArray *mutableKeywords = [[NSMutableArray alloc] initWithArray:[currentUser.keywords mutableCopy]];
+        
+        if ([mutableKeywords count] > 0) {
+            [mutableKeywords replaceObjectAtIndex:0 withObject:currentKeyword];
+        } else {
+            [mutableKeywords addObject:currentKeyword];
+        }
+        
+        [BTIUser getCurrentUserInBackgroundWithBlock:^(BTIUser *user, NSError *error) {
+            currentUser = user;
+        }];
+        
         currentUser.keywords = mutableKeywords;
         [currentUser saveAsCurrentUserInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             // do nothing
+            self.status.text = currentKeyword;
+            self.addInterestsButton.hidden = [[self.status.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0 ? NO : YES;
+            self.editInterestsButton.hidden = !self.addInterestsButton.hidden;
+            
+            [self updateUsersAlgorithm];
+            
+            /*
+            for (NSDictionary *dict in mutableArray) {
+                for (NSString* key in [dict allKeys]) {
+                    NSLog(@"key: %@, value: %@", key, [dict objectForKey:key]);
+                }
+            }
+             */
+            
         }];
         
     }
@@ -300,21 +334,23 @@
         [postButtonLabel setHidden:false];
         [statusTextView setHidden:false];
         [updateStatusLabel setHidden:false];
-        status.text = [person objectForKey:@"currentStatus"];
+        
+        // status.text = [person objectForKey:@"currentStatus"];
+    
     } else {
         [postButton setHidden:false];
         [postButtonLabel setHidden:false];
         [statusTextView setHidden:false];
         [updateStatusLabel setHidden:false];
-        status.text = [[[[person objectForKey:@"personActivities"] 
+        
+        /*
+        status.text = [[[[person objectForKey:@"personActivities"]
                             objectForKey:@"values"]
                                 objectAtIndex:0]
                                     objectForKey:@"body"];
+         */
     }
-    
-    self.status.hidden = NO;
-    
-    //[self dismissModalViewControllerAnimated:YES];
+        
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -357,7 +393,6 @@
 {
     // The next thing we want to do is call the network updates
     [self networkApiCall];
-    
 }
 
 - (void)postUpdateApiCallResult:(OAServiceTicket *)ticket didFail:(NSData *)error 
@@ -368,20 +403,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.name.hidden = YES;
-    self.headline.hidden = YES;
-    self.status.hidden = YES;
     self.navigationItem.leftBarButtonItem = nil;
     
     self.collectionView.hidden = YES;
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     
-    //[self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"ProfileCell"];
-    
     self.userImages = [[NSMutableArray alloc] initWithCapacity:10];
     
+    self.addInterestsButton.hidden = YES;
+    self.editInterestsButton.hidden = YES;
+
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -410,14 +442,17 @@
 }
 
 #pragma mark - UICollectionView Datasource
+
 // 1
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
     return [self.usersOutThere count];
 }
+
 // 2
 - (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView {
     return 1;
 }
+
 // 3
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -441,7 +476,6 @@
 
 #pragma mark – UICollectionViewDelegateFlowLayout
 
-
 - (UIEdgeInsets)collectionView:
 (UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     return UIEdgeInsetsMake(2.5, 5, 2.5, 5);
@@ -457,6 +491,54 @@
         if (info && [info count]) { break; }
     }
     return info;
+}
+
+- (void) updateUsersAlgorithm
+{
+    [BTIUser getCurrentUserInBackgroundWithBlock:^(BTIUser *user, NSError *error) {
+        currentUser = user;
+        NSString *currentUserKeywords = currentUser.keywords[0];
+        NSMutableArray *dictArray = [self getRankingDictArray:currentUserKeywords];
+        for (NSDictionary *dict in dictArray) {
+            for (NSString* key in [dict allKeys]) {
+                NSLog(@"key: %@, value: %@", key, [dict objectForKey:key]);
+            }
+        }
+    }];
+}
+
+- (NSMutableArray *)getRankingDictArray:(NSString *)keywords
+{
+    NSMutableArray *dictArray = [[NSMutableArray alloc] init];
+    NSArray *currentUserKeywordsArray = [self stringToArray:keywords];
+    NSLog(@"current user keywords array: %@", currentUserKeywordsArray);
+    for (BTIUser *user in self.usersOutThere) {
+        NSMutableDictionary *userRankingDict = [[NSMutableDictionary alloc] init];
+        [userRankingDict setObject:[NSNumber numberWithInt:0] forKey:user.objectId];
+        NSArray *userKeywordsArray = [self stringToArray:user.keywords[0]];
+        NSLog(@"user keywords array: %@", userKeywordsArray);
+        for (NSString *keywordStr in userKeywordsArray) {
+            
+            for (NSString *currentUserKeywordStr in currentUserKeywordsArray) {
+                BOOL identicalStrFound = [currentUserKeywordStr isEqualToString:keywordStr];
+                if (identicalStrFound) {
+                    [userRankingDict setObject:[NSNumber numberWithInt:[[userRankingDict objectForKey:user.objectId] integerValue] + 1] forKey:user.objectId];
+                }
+            }
+        }
+        [dictArray addObject:userRankingDict];
+    }
+    return dictArray;
+}
+
+- (NSMutableArray *)stringToArray:(NSString *)keywords
+{
+    NSArray *keywordsArray = [keywords componentsSeparatedByString:@","];
+    NSMutableArray *trimmedKeywordsArray = [[NSMutableArray alloc] initWithArray:keywordsArray];
+    for (NSString *keyword in keywordsArray) {
+        [trimmedKeywordsArray replaceObjectAtIndex:[keywordsArray indexOfObject:keyword] withObject:[keyword stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+    }
+    return trimmedKeywordsArray;
 }
 
 @end

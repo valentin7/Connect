@@ -18,6 +18,8 @@
 
 @interface ProfileTabView : UIViewController <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIAlertViewDelegate, MBProgressHUDDelegate>
 
+@property (strong, nonatomic) IBOutlet UIButton *addInterestsButton;
+@property (strong, nonatomic) IBOutlet UIButton *editInterestsButton;
 @property (retain, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (retain, nonatomic) IBOutlet UIBarButtonItem *logoutButton;
 @property (nonatomic, retain) IBOutlet UIButton *button;
