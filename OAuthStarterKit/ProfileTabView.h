@@ -15,7 +15,7 @@
 #import "OADataFetcher.h"
 #import "OATokenManager.h"
 
-@interface ProfileTabView : UIViewController <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface ProfileTabView : UIViewController <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIAlertViewDelegate>
 
 @property (retain, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (retain, nonatomic) IBOutlet UIBarButtonItem *logoutButton;
@@ -35,6 +35,8 @@
 - (IBAction)button_TouchUp:(UIButton *)sender;
 - (void)profileApiCall;
 - (void)networkApiCall;
+
+- (IBAction)editKeywords:(id)sender;
 
 
 @end

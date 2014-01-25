@@ -142,7 +142,11 @@
                     </view>
                     <navigationItem key="navigationItem" title="CONNECT" id="1NK-P3-7j2">
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="wCm-Xw-Jr8"/>
-                        <barButtonItem key="rightBarButtonItem" title="Edit Profile" id="Rb7-yr-OIz"/>
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="Rb7-yr-OIz">
+                            <connections>
+                                <action selector="editKeywords:" destination="ehm-3e-c7Z" id="wvw-9T-ghp"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="button" destination="U6A-DH-kKt" id="hWF-Ek-U47"/>

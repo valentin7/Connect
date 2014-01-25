@@ -13,11 +13,13 @@
 #import "ProfileCell.h"
 #import "BTIUser.h"
 #import <SystemConfiguration/CaptiveNetwork.h>
+#import "UIImageView+AFNetworking.h"
 
 @implementation ProfileTabView
 {
     UIImage *linkedInImage;
     NSString *avatarURL;
+    BTIUser *currentUser;
 }
 
 @synthesize button, name, headline, oAuthLoginView, 
@@ -87,8 +89,6 @@
         self.name.hidden = NO;
         self.headline.hidden = NO;
         self.navigationItem.leftBarButtonItem = self.logoutButton;
-        self.button.hidden = YES;
-        self.collectionView.hidden = NO;
         
         if ([BTIUser hasCurrentUser]) {
             [BTIUser getCurrentUserInBackgroundWithBlock:^(BTIUser *user, NSError *error) {
@@ -99,7 +99,6 @@
             BTIUser *user = [BTIUser object];
             user.name = name.text;
             user.title = headline.text;
-            
             user.avatarURL = avatarURL;
             
             [user saveAsCurrentUserInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -142,6 +141,8 @@
     
     if ( profile )
     {
+        self.button.hidden = YES;
+        self.collectionView.hidden = NO;
         NSArray *imageArray = [profile objectForKey:@"values"];
         
         NSString *url = [imageArray objectAtIndex:0];
@@ -157,7 +158,7 @@
         // fetch all users over the same network
         [BTIUser findUsersPresentOn:[[self fetchSSIDInfo] objectForKey:@"SSID"] inBackgroundWithBlock:^(NSSet *users, NSError *error) {
             [BTIUser getCurrentUserInBackgroundWithBlock:^(BTIUser *user, NSError *error) {
-                
+                currentUser = user;
                 NSMutableSet *mutableUsers = [NSMutableSet setWithSet:users];
                 [mutableUsers removeObject:user];
                 self.usersOutThere = [[NSMutableArray alloc] initWithArray:[mutableUsers allObjects]];
@@ -199,6 +200,35 @@
                 didFinishSelector:@selector(networkApiCallResult:didFinish:)
                   didFailSelector:@selector(networkApiCallResult:didFail:)];    
     
+}
+
+- (IBAction)editKeywords:(id)sender
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Edit Your Interests"
+                                                    message:nil delegate: self cancelButtonTitle:@"Cancel" otherButtonTitles:
+                          @"Done",nil];
+    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    UITextField *textField = [alertView textFieldAtIndex:0];
+    textField.text = [currentUser.keywords objectAtIndex:0];
+    //textField.text = @"Test Keywords...";
+    [alertView show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        // do nothing...
+    } else if (buttonIndex == 1) {
+        // update keywords
+        NSString *currentKeyword = [alertView textFieldAtIndex:0].text;
+        NSMutableArray *mutableKeywords = [currentUser.keywords mutableCopy];
+        [mutableKeywords replaceObjectAtIndex:0 withObject:currentKeyword];
+        currentUser.keywords = mutableKeywords;
+        [currentUser saveAsCurrentUserInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            // Maybe we need to register its presence again?!
+        }];
+        
+    }
 }
 
 - (void)networkApiCallResult:(OAServiceTicket *)ticket didFinish:(NSData *)data 
@@ -345,12 +375,22 @@
     NSString *url = user.avatarURL;
     NSURL *imageURL = [NSURL URLWithString:url];
     
-    // dispatch_async(<#dispatch_queue_t queue#>, <#^(void)block#>)
-    NSData *imageData = [[NSData alloc] initWithContentsOfURL:imageURL];
-    UIImage *image = [UIImage imageWithData:imageData];
-    UIImage *resizedImage = [image resizedImageToWidth:132 andHeight:132];
-    [cell.profileImageView setImage:resizedImage];
+    [cell.profileImageView setImageWithURL:imageURL];
     
+    /*
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+        //Background Thread
+        NSData *imageData = [[NSData alloc] initWithContentsOfURL:imageURL];
+        UIImage *image = [UIImage imageWithData:imageData];
+        UIImage *resizedImage = [image resizedImageToWidth:132 andHeight:132];
+        dispatch_async(dispatch_get_main_queue(), ^(void){
+            //Run UI Updates
+            [cell.profileImageView setImage:resizedImage];
+     
+        });
+    });
+     */
+
     cell.profileImageView.layer.cornerRadius = 4.0f;
     cell.profileImageView.layer.masksToBounds = YES;
     
@@ -358,7 +398,7 @@
     cell.keywordsLabel.text = user.keywords[0];
     ///[cell.keywordsLabel sizeToFit];
     cell.keywordsLabel.textAlignment = NSTextAlignmentCenter;
-     
+    
     cell.backgroundColor = [UIColor lightGrayColor];
     return cell;
 }
