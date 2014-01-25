@@ -43,6 +43,18 @@
 		659411171353AE6800826837 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 659411141353AE6800826837 /* Icon-72.png */; };
 		659411181353AE6800826837 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 659411151353AE6800826837 /* Icon.png */; };
 		659411191353AE6800826837 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 659411161353AE6800826837 /* Icon@2x.png */; };
+		91BC21431893808200D75B4E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91BC21421893808200D75B4E /* Parse.framework */; };
+		91BC2145189380A400D75B4E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91BC2144189380A400D75B4E /* AudioToolbox.framework */; };
+		91BC2147189380AA00D75B4E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91BC2146189380AA00D75B4E /* CFNetwork.framework */; };
+		91BC2149189380AF00D75B4E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91BC2148189380AF00D75B4E /* CoreLocation.framework */; };
+		91BC214B189380B300D75B4E /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 91BC214A189380B300D75B4E /* libz.dylib */; };
+		91BC214D189380B800D75B4E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91BC214C189380B800D75B4E /* MobileCoreServices.framework */; };
+		91BC214F189380BC00D75B4E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91BC214E189380BC00D75B4E /* QuartzCore.framework */; };
+		91BC2151189380C000D75B4E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91BC2150189380C000D75B4E /* Security.framework */; };
+		91BC2153189380C600D75B4E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91BC2152189380C600D75B4E /* StoreKit.framework */; };
+		91BC2155189380CA00D75B4E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91BC2154189380CA00D75B4E /* SystemConfiguration.framework */; };
+		91BC215B1893812E00D75B4E /* BTIUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BC21581893812E00D75B4E /* BTIUser.m */; };
+		91BC215C1893812E00D75B4E /* BTIPresence.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BC215A1893812E00D75B4E /* BTIPresence.m */; };
 		D41A6923189356070050831B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D41A6922189356070050831B /* Default-568h@2x.png */; };
 		D41A6926189367340050831B /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A6925189367340050831B /* UIImage+Resize.m */; };
 		D41A6928189371BC0050831B /* iPhoneStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D41A6927189371BC0050831B /* iPhoneStoryboard.storyboard */; };
@@ -114,6 +126,20 @@
 		659411141353AE6800826837 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		659411151353AE6800826837 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		659411161353AE6800826837 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		91BC21421893808200D75B4E /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		91BC2144189380A400D75B4E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		91BC2146189380AA00D75B4E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		91BC2148189380AF00D75B4E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		91BC214A189380B300D75B4E /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		91BC214C189380B800D75B4E /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		91BC214E189380BC00D75B4E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		91BC2150189380C000D75B4E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		91BC2152189380C600D75B4E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		91BC2154189380CA00D75B4E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		91BC21571893812E00D75B4E /* BTIUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTIUser.h; sourceTree = "<group>"; };
+		91BC21581893812E00D75B4E /* BTIUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTIUser.m; sourceTree = "<group>"; };
+		91BC21591893812E00D75B4E /* BTIPresence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTIPresence.h; sourceTree = "<group>"; };
+		91BC215A1893812E00D75B4E /* BTIPresence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTIPresence.m; sourceTree = "<group>"; };
 		D41A6922189356070050831B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		D41A6924189367340050831B /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
 		D41A6925189367340050831B /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
@@ -127,8 +153,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91BC2155189380CA00D75B4E /* SystemConfiguration.framework in Frameworks */,
+				91BC2153189380C600D75B4E /* StoreKit.framework in Frameworks */,
+				91BC2151189380C000D75B4E /* Security.framework in Frameworks */,
+				91BC214F189380BC00D75B4E /* QuartzCore.framework in Frameworks */,
+				91BC214D189380B800D75B4E /* MobileCoreServices.framework in Frameworks */,
+				91BC214B189380B300D75B4E /* libz.dylib in Frameworks */,
+				91BC2149189380AF00D75B4E /* CoreLocation.framework in Frameworks */,
+				91BC2147189380AA00D75B4E /* CFNetwork.framework in Frameworks */,
+				91BC2145189380A400D75B4E /* AudioToolbox.framework in Frameworks */,
 				659410A21353A25700826837 /* UIKit.framework in Frameworks */,
 				659410A41353A25700826837 /* Foundation.framework in Frameworks */,
+				91BC21431893808200D75B4E /* Parse.framework in Frameworks */,
 				659410A61353A25700826837 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -157,6 +193,16 @@
 		659410A01353A25700826837 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				91BC2154189380CA00D75B4E /* SystemConfiguration.framework */,
+				91BC2152189380C600D75B4E /* StoreKit.framework */,
+				91BC2150189380C000D75B4E /* Security.framework */,
+				91BC214E189380BC00D75B4E /* QuartzCore.framework */,
+				91BC214C189380B800D75B4E /* MobileCoreServices.framework */,
+				91BC214A189380B300D75B4E /* libz.dylib */,
+				91BC2148189380AF00D75B4E /* CoreLocation.framework */,
+				91BC2146189380AA00D75B4E /* CFNetwork.framework */,
+				91BC2144189380A400D75B4E /* AudioToolbox.framework */,
+				91BC21421893808200D75B4E /* Parse.framework */,
 				659410A11353A25700826837 /* UIKit.framework */,
 				659410A31353A25700826837 /* Foundation.framework */,
 				659410A51353A25700826837 /* CoreGraphics.framework */,
@@ -167,6 +213,7 @@
 		659410A71353A25700826837 /* OAuthStarterKit */ = {
 			isa = PBXGroup;
 			children = (
+				91BC21561893810D00D75B4E /* Data Model */,
 				659410BB1353A29200826837 /* READ_ME.txt */,
 				659411111353A61B00826837 /* Views */,
 				659411131353A64A00826837 /* JSON */,
@@ -286,6 +333,17 @@
 			name = JSON;
 			sourceTree = "<group>";
 		};
+		91BC21561893810D00D75B4E /* Data Model */ = {
+			isa = PBXGroup;
+			children = (
+				91BC21571893812E00D75B4E /* BTIUser.h */,
+				91BC21581893812E00D75B4E /* BTIUser.m */,
+				91BC21591893812E00D75B4E /* BTIPresence.h */,
+				91BC215A1893812E00D75B4E /* BTIPresence.m */,
+			);
+			name = "Data Model";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -362,6 +420,7 @@
 				659410B21353A25700826837 /* OAuthStarterKitAppDelegate.m in Sources */,
 				659410C11353A36600826837 /* ProfileTabView.m in Sources */,
 				659410E51353A39900826837 /* OAuthLoginView.m in Sources */,
+				91BC215B1893812E00D75B4E /* BTIUser.m in Sources */,
 				659410E61353A39900826837 /* OATokenManager.m in Sources */,
 				659410E71353A39900826837 /* OAToken.m in Sources */,
 				659410E81353A39900826837 /* OAServiceTicket.m in Sources */,
@@ -373,6 +432,7 @@
 				659410EE1353A39900826837 /* OADataFetcher.m in Sources */,
 				659410EF1353A39900826837 /* OAConsumer.m in Sources */,
 				659410F01353A39900826837 /* OACall.m in Sources */,
+				91BC215C1893812E00D75B4E /* BTIPresence.m in Sources */,
 				659410F11353A39900826837 /* OAAttachment.m in Sources */,
 				659410F41353A39900826837 /* JSONKit.m in Sources */,
 				D41A6926189367340050831B /* UIImage+Resize.m in Sources */,
@@ -445,6 +505,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/spinosa/code/Connect,
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OAuthStarterKit/OAuthStarterKit-Prefix.pch";
@@ -461,6 +525,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/spinosa/code/Connect,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OAuthStarterKit/OAuthStarterKit-Prefix.pch";
 				GCC_VERSION = "";

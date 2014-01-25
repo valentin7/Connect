@@ -8,6 +8,9 @@
 
 #import "OAuthStarterKitAppDelegate.h"
 #import "ProfileTabView.h"
+#import <Parse/Parse.h>
+#import "BTIUser.h"
+#import "BTIPresence.h"
 
 @implementation OAuthStarterKitAppDelegate
 
@@ -22,11 +25,19 @@
     
     // [self.window makeKeyAndVisible];
     
+    [self setupParseWithLaunchOptions:launchOptions];
+    
     return YES;
 }
 
-
-
+- (void)setupParseWithLaunchOptions:(NSDictionary *)launchOptions
+{
+    [BTIUser registerSubclass];
+    [BTIPresence registerSubclass];
+    [Parse setApplicationId:@"6QTvjj4OBiY7bfMPt9AZUlqpddF4rAwW3PSlupIs"
+                  clientKey:@"czIGDRrfEaEM1xx7TG1nsIGfkfFCKacqLbbb7sN7"];
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
