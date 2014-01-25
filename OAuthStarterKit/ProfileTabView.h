@@ -15,10 +15,10 @@
 #import "OADataFetcher.h"
 #import "OATokenManager.h"
 
-@interface ProfileTabView : UIViewController 
-{
-}
+@interface ProfileTabView : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 
+@property (retain, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (retain, nonatomic) IBOutlet UIBarButtonItem *logoutButton;
 @property (nonatomic, retain) IBOutlet UIButton *button;
 @property (nonatomic, retain) IBOutlet UIButton *postButton;
 @property (nonatomic, retain) IBOutlet UILabel *postButtonLabel;

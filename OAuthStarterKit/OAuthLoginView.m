@@ -156,7 +156,8 @@
                                   object:self 
                                 userInfo:nil];
 
-            [self dismissModalViewControllerAnimated:YES];
+            //[self dismissModalViewControllerAnimated:YES];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
     }
     else
@@ -211,7 +212,8 @@
      postNotificationName:@"loginViewDidFinish"        
      object:self];
     
-    [self dismissModalViewControllerAnimated:YES];
+    // [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
     [responseBody release];
 }
 
@@ -263,7 +265,9 @@
          postNotificationName:@"loginViewDidFinish"        
          object:self];
         
-        [self dismissModalViewControllerAnimated:YES];
+        //[self dismissModalViewControllerAnimated:YES];
+        [self dismissViewControllerAnimated:YES completion:nil];
+
     }
 
     [self requestTokenFromProvider];

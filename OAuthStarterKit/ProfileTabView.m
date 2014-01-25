@@ -9,7 +9,8 @@
 
 #import <Foundation/NSNotificationQueue.h>
 #import "ProfileTabView.h"
-
+#import "UIImage+Resize.h"
+#import "ProfileCell.h"
 
 @implementation ProfileTabView
 
@@ -28,7 +29,8 @@
                                                  name:@"loginViewDidFinish" 
                                                object:oAuthLoginView];
     
-    [self presentModalViewController:oAuthLoginView animated:YES];
+    //[self presentModalViewController:oAuthLoginView animated:YES];
+    [self presentViewController:oAuthLoginView animated:YES completion:nil];
 }
 
 
@@ -45,8 +47,7 @@
 
 - (void)profileApiCall
 {
-    NSURL *url = [NSURL URLWithString:@"http://api.linkedin.com/v1/people/~/picture-urls::(original)"];
-    //NSURL *url = [NSURL URLWithString:@"http://api.linkedin.com/v1/people/~"];
+    NSURL *url = [NSURL URLWithString:@"http://api.linkedin.com/v1/people/~"];
     
     OAMutableURLRequest *request = 
     [[OAMutableURLRequest alloc] initWithURL:url
@@ -76,28 +77,70 @@
 
     if ( profile )
     {
-        NSLog(@"profile: %@", profile);
-        /*
         name.text = [[NSString alloc] initWithFormat:@"%@ %@",
                      [profile objectForKey:@"firstName"], [profile objectForKey:@"lastName"]];
         headline.text = [profile objectForKey:@"headline"];
-        NSLog(@"all keys: %@", profile);
-         */
         
+        self.name.hidden = NO;
+        self.headline.hidden = NO;
+        self.navigationItem.leftBarButtonItem = self.logoutButton;
+        self.button.hidden = YES;
+        self.collectionView.hidden = NO;
+    }
+    
+    // The next thing we want to do is to retrieve the profile image
+    [self profileImageApiCall];
+}
+
+- (void)profileImageApiCall
+{
+    NSURL *url = [NSURL URLWithString:@"http://api.linkedin.com/v1/people/~/picture-urls::(original)"];
+    
+    OAMutableURLRequest *request =
+    [[OAMutableURLRequest alloc] initWithURL:url
+                                    consumer:oAuthLoginView.consumer
+                                       token:oAuthLoginView.accessToken
+                                    callback:nil
+                           signatureProvider:nil];
+    
+    [request setValue:@"json" forHTTPHeaderField:@"x-li-format"];
+    
+    OADataFetcher *fetcher = [[OADataFetcher alloc] init];
+    [fetcher fetchDataWithRequest:request
+                         delegate:self
+                didFinishSelector:@selector(profileImageApiCallResult:didFinish:)
+                  didFailSelector:@selector(profileImageApiCallResult:didFail:)];
+    [request release];
+    
+}
+
+- (void)profileImageApiCallResult:(OAServiceTicket *)ticket didFinish:(NSData *)data
+{
+    NSString *responseBody = [[NSString alloc] initWithData:data
+                                                   encoding:NSUTF8StringEncoding];
+    
+    NSDictionary *profile = [responseBody objectFromJSONString];
+    [responseBody release];
+    
+    if ( profile )
+    {
         NSArray *imageArray = [profile objectForKey:@"values"];
         NSString *url = [imageArray objectAtIndex:0];
         NSURL *imageURL = [NSURL URLWithString:url];
         NSData *imageData = [[NSData alloc] initWithContentsOfURL:imageURL];
         UIImage *image = [UIImage imageWithData:imageData];
-        [self.imageView setImage:image];
+        UIImage *resizedImage = [image resizedImageToWidth:132 andHeight:132];
+        [self.imageView setImage:resizedImage];
+        self.imageView.layer.cornerRadius = 33;
+        self.imageView.layer.masksToBounds = YES;
     }
     
     // The next thing we want to do is call the network updates
     [self networkApiCall];
-
+    
 }
 
-- (void)profileApiCallResult:(OAServiceTicket *)ticket didFail:(NSData *)error 
+- (void)profileImageApiCallResult:(OAServiceTicket *)ticket didFail:(NSData *)error
 {
     NSLog(@"%@",[error description]);
 }
@@ -152,10 +195,12 @@
                             objectForKey:@"values"]
                                 objectAtIndex:0]
                                     objectForKey:@"body"];
-        
     }
     
-    [self dismissModalViewControllerAnimated:YES];
+    self.status.hidden = NO;
+    
+    //[self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)networkApiCallResult:(OAServiceTicket *)ticket didFail:(NSData *)error 
@@ -209,6 +254,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.name.hidden = YES;
+    self.headline.hidden = YES;
+    self.status.hidden = YES;
+    self.navigationItem.leftBarButtonItem = nil;
+    
+    self.collectionView.hidden = YES;
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
+    
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -222,6 +277,8 @@
 - (void)dealloc
 {
     [_imageView release];
+    [_logoutButton release];
+    [_collectionView release];
     [super dealloc];
 }
 
@@ -240,6 +297,23 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark - UICollectionView Datasource
+// 1
+- (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
+    return 4;
+}
+// 2
+- (NSInteger)numberOfSectionsInCollectionView: (UICollectionView *)collectionView {
+    return 1;
+}
+// 3
+- (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    ProfileCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    
+    cell.backgroundColor = [UIColor whiteColor];
+    return cell;
 }
 
 @end

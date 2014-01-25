@@ -44,6 +44,9 @@
 		659411181353AE6800826837 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 659411151353AE6800826837 /* Icon.png */; };
 		659411191353AE6800826837 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 659411161353AE6800826837 /* Icon@2x.png */; };
 		D41A6923189356070050831B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D41A6922189356070050831B /* Default-568h@2x.png */; };
+		D41A6926189367340050831B /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A6925189367340050831B /* UIImage+Resize.m */; };
+		D41A6928189371BC0050831B /* iPhoneStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D41A6927189371BC0050831B /* iPhoneStoryboard.storyboard */; };
+		D41A692B18937D8A0050831B /* ProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D41A692A18937D8A0050831B /* ProfileCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -112,6 +115,11 @@
 		659411151353AE6800826837 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		659411161353AE6800826837 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		D41A6922189356070050831B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		D41A6924189367340050831B /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
+		D41A6925189367340050831B /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
+		D41A6927189371BC0050831B /* iPhoneStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iPhoneStoryboard.storyboard; sourceTree = "<group>"; };
+		D41A692918937D8A0050831B /* ProfileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileCell.h; sourceTree = "<group>"; };
+		D41A692A18937D8A0050831B /* ProfileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,8 +227,13 @@
 			isa = PBXGroup;
 			children = (
 				659410BD1353A36600826837 /* ProfileTabView.xib */,
+				D41A6927189371BC0050831B /* iPhoneStoryboard.storyboard */,
+				D41A692918937D8A0050831B /* ProfileCell.h */,
+				D41A692A18937D8A0050831B /* ProfileCell.m */,
 				659410BE1353A36600826837 /* ProfileTabView.m */,
 				659410BF1353A36600826837 /* ProfileTabView.h */,
+				D41A6924189367340050831B /* UIImage+Resize.h */,
+				D41A6925189367340050831B /* UIImage+Resize.m */,
 				659410C21353A39900826837 /* OAuthLoginView.xib */,
 				659410C31353A39900826837 /* OAuthLoginView.m */,
 				659410C41353A39900826837 /* OAuthLoginView.h */,
@@ -325,6 +338,7 @@
 			files = (
 				659410AC1353A25700826837 /* InfoPlist.strings in Resources */,
 				D41A6923189356070050831B /* Default-568h@2x.png in Resources */,
+				D41A6928189371BC0050831B /* iPhoneStoryboard.storyboard in Resources */,
 				659410B51353A25700826837 /* MainWindow.xib in Resources */,
 				659410BC1353A29200826837 /* READ_ME.txt in Resources */,
 				659410C01353A36600826837 /* ProfileTabView.xib in Resources */,
@@ -361,7 +375,9 @@
 				659410F01353A39900826837 /* OACall.m in Sources */,
 				659410F11353A39900826837 /* OAAttachment.m in Sources */,
 				659410F41353A39900826837 /* JSONKit.m in Sources */,
+				D41A6926189367340050831B /* UIImage+Resize.m in Sources */,
 				659411031353A41600826837 /* Base64Transcoder.c in Sources */,
+				D41A692B18937D8A0050831B /* ProfileCell.m in Sources */,
 				659411041353A41600826837 /* hmac.c in Sources */,
 				659411051353A41600826837 /* sha1.c in Sources */,
 				659411061353A41600826837 /* NSMutableURLRequest+Parameters.m in Sources */,

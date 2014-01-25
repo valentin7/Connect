@@ -16,10 +16,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    ProfileTabView *profileViewController = [[ProfileTabView alloc] initWithNibName:nil bundle:nil];
-    self.window.rootViewController = profileViewController;
     
-    [self.window makeKeyAndVisible];
+    // ProfileTabView *profileViewController = [[ProfileTabView alloc] initWithNibName:nil bundle:nil];
+    // self.window.rootViewController = profileViewController;
+    
+    // [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
@@ -44,12 +46,6 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-}
-
-- (void)dealloc
-{
-    [_window release];
-    [super dealloc];
 }
 
 @end
