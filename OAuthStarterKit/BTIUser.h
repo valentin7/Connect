@@ -45,7 +45,7 @@
  * @discussion This method will the set user returned by
  * +getCurrentUser...
  */
-- (void)saveAsCurrentUser;
+- (void)saveAsCurrentUserInBackgroundWithBlock:(void(^)(BOOL succeeded, NSError *error))block;
 
 /* Sets this user as currently present on the given network.
  * Call this method regularly while user is active in the app.

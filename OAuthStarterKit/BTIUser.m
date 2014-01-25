@@ -70,7 +70,7 @@ static NSString *kUserDefaultsUserIDKey = @"parseUserID";
     [defs synchronize];
 }
 
-- (void)saveAsCurrentUser
+- (void)saveAsCurrentUserInBackgroundWithBlock:(void(^)(BOOL succeeded, NSError *error))block
 {
     [self saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
@@ -78,6 +78,7 @@ static NSString *kUserDefaultsUserIDKey = @"parseUserID";
             [defs setObject:self.objectId forKey:kUserDefaultsUserIDKey];
             [defs synchronize];
         }
+        block(succeeded, error);
     }];
 }
 
