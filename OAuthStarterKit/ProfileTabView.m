@@ -11,6 +11,8 @@
 #import "ProfileTabView.h"
 #import "UIImage+Resize.h"
 #import "ProfileCell.h"
+#import "BTIUser.h"
+#import <SystemConfiguration/CaptiveNetwork.h>
 
 @implementation ProfileTabView
 {
@@ -24,7 +26,6 @@
 - (IBAction)button_TouchUp:(UIButton *)sender
 {    
     oAuthLoginView = [[OAuthLoginView alloc] initWithNibName:nil bundle:nil];
-    [oAuthLoginView retain];
  
     // register to be told when the login is finished
     [[NSNotificationCenter defaultCenter] addObserver:self 
@@ -66,7 +67,6 @@
                          delegate:self
                 didFinishSelector:@selector(profileApiCallResult:didFinish:)
                   didFailSelector:@selector(profileApiCallResult:didFail:)];    
-    [request release];
     
 }
 
@@ -76,7 +76,6 @@
                                                    encoding:NSUTF8StringEncoding];
     
     NSDictionary *profile = [responseBody objectFromJSONString];
-    [responseBody release];
 
     if ( profile )
     {
@@ -89,6 +88,16 @@
         self.navigationItem.leftBarButtonItem = self.logoutButton;
         self.button.hidden = YES;
         self.collectionView.hidden = NO;
+        
+        // Register current user's presence on Network with SSID
+        BTIUser *user = [BTIUser object];
+        user.name = name.text;
+        user.status = headline.text;
+        [user saveAsCurrentUser];
+        NSLog(@"%@", [[self fetchSSIDInfo] objectForKey:@"SSID"]);
+        sleep(3);
+        [user registerMyPresenceOn:[[self fetchSSIDInfo] objectForKey:@"SSID"]];
+        
     }
     
     // The next thing we want to do is to retrieve the profile image
@@ -113,7 +122,6 @@
                          delegate:self
                 didFinishSelector:@selector(profileImageApiCallResult:didFinish:)
                   didFailSelector:@selector(profileImageApiCallResult:didFail:)];
-    [request release];
     
 }
 
@@ -123,7 +131,6 @@
                                                    encoding:NSUTF8StringEncoding];
     
     NSDictionary *profile = [responseBody objectFromJSONString];
-    [responseBody release];
     
     if ( profile )
     {
@@ -169,7 +176,6 @@
                          delegate:self
                 didFinishSelector:@selector(networkApiCallResult:didFinish:)
                   didFailSelector:@selector(networkApiCallResult:didFail:)];    
-    [request release];
     
 }
 
@@ -183,8 +189,6 @@
                                     objectAtIndex:0]
                                         objectForKey:@"updateContent"]
                                             objectForKey:@"person"];
-    
-    [responseBody release];
     
     if ( [person objectForKey:@"currentStatus"] )
     {
@@ -243,7 +247,6 @@
                          delegate:self
                 didFinishSelector:@selector(postUpdateApiCallResult:didFinish:)
                   didFailSelector:@selector(postUpdateApiCallResult:didFail:)];    
-    [request release];
 }
 
 - (void)postUpdateApiCallResult:(OAServiceTicket *)ticket didFinish:(NSData *)data 
@@ -312,13 +315,15 @@
 // 3
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ProfileCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"ProfileCell" forIndexPath:indexPath];
-    //cell = [[ProfileCell alloc] initWithName:@"test" image:nil title:@"test" keywords:@"test"];
-    //cell = [[ProfileCell alloc] initWithName:@"Paul" image:linkedInImage title:@"title" keywords:@"Obj-c"];
     
     cell.nameLabel.text = @"Paul Wong";
     [cell.profileImageView setImage:linkedInImage];
+    cell.profileImageView.layer.cornerRadius = 4.0f;
+    cell.profileImageView.layer.masksToBounds = YES;
     cell.titleLabel.text = @"Student Again!";
-    cell.keywordsLabel.text = @"Obj-C, Ruby on Rails";
+    cell.keywordsLabel.text = @"Obj-C, Ruby on Rails Blah Blah Blah";
+    ///[cell.keywordsLabel sizeToFit];
+    cell.keywordsLabel.textAlignment = NSTextAlignmentCenter;
      
     cell.backgroundColor = [UIColor lightGrayColor];
     return cell;
@@ -329,7 +334,19 @@
 
 - (UIEdgeInsets)collectionView:
 (UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(5, 5, 5, 5);
+    return UIEdgeInsetsMake(2.5, 5, 2.5, 5);
+}
+
+- (id)fetchSSIDInfo {
+    NSArray *ifs = (__bridge_transfer id)CNCopySupportedInterfaces();
+    NSLog(@"Supported interfaces: %@", ifs);
+    id info = nil;
+    for (NSString *ifnam in ifs) {
+        info = (__bridge_transfer id)CNCopyCurrentNetworkInfo((__bridge CFStringRef)ifnam);
+        NSLog(@"%@ => %@", ifnam, info);
+        if (info && [info count]) { break; }
+    }
+    return info;
 }
 
 @end
