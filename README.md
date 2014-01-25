@@ -8,6 +8,12 @@ The app displays a list of users on the same Wi-Fi network, complete with a pict
 
 =======
 
+![Connect Home](https://raw.github.com/valentin7/Connect/master/presentation/Presentation_connect_screen.png)
+
+![Connect Home](https://raw.github.com/valentin7/Connect/master/presentation/Presentation_signin_screen.png)
+
+![Connect Home](https://raw.github.com/valentin7/Connect/master/presentation/Presentation_result_screen.gif)
+
 
 
 ![Connect Home](https://raw.github.com/valentin7/Connect/master/raw_assets/screenshots/connect_home.png)
