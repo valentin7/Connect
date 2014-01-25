@@ -7,10 +7,10 @@ The app displays a list of users on the same Wi-Fi network, complete with a pict
 
 =======
 
-![Connect](https://raw.github.com/valentin7/Connect/master/presentation/Presentation_connect_screen.png)
+![Connect](https://raw.github.com/valentin7/Connect/master/presentation/final/Presentation_connect_screen.png)
 
-![Connect Welcome](https://raw.github.com/valentin7/Connect/master/presentation/Presentation_welcome_screen.gif)
+![Connect Welcome](https://raw.github.com/valentin7/Connect/master/presentation/final/Presentation_welcome_screen.gif)
 
-![Connect Signin](https://raw.github.com/valentin7/Connect/master/presentation/Presentation_signin_screen.png)
+![Connect Signin](https://raw.github.com/valentin7/Connect/master/presentation/final/Presentation-03.png)
 
-![Connect Results](https://raw.github.com/valentin7/Connect/master/presentation/Presentation_result_screen.gif)
+![Connect Results](https://raw.github.com/valentin7/Connect/master/presentation/final/Presentation_result_screen.gif)
