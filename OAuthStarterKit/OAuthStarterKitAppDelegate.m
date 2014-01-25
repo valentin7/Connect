@@ -19,12 +19,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
-    // ProfileTabView *profileViewController = [[ProfileTabView alloc] initWithNibName:nil bundle:nil];
-    // self.window.rootViewController = profileViewController;
-    
-    // [self.window makeKeyAndVisible];
-    
     [self setupParseWithLaunchOptions:launchOptions];
     
     return YES;

@@ -15,7 +15,7 @@
 #import "OADataFetcher.h"
 #import "OATokenManager.h"
 
-@interface ProfileTabView : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface ProfileTabView : UIViewController <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @property (retain, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (retain, nonatomic) IBOutlet UIBarButtonItem *logoutButton;

@@ -10,6 +10,7 @@
 
 @implementation ProfileCell
 
+/*
 - (id)initWithName:(NSString *)name image:(UIImage *)image title:(NSString *)title keywords:(NSString *)keywords
 {
     self.nameLabel.text = name;
@@ -18,6 +19,7 @@
     self.keywordsLabel.text = keywords;
     return self;
 }
+ */
 
 
 @end

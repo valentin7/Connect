@@ -13,6 +13,9 @@
 #import "ProfileCell.h"
 
 @implementation ProfileTabView
+{
+    UIImage *linkedInImage;
+}
 
 @synthesize button, name, headline, oAuthLoginView, 
             status, postButton, postButtonLabel,
@@ -130,6 +133,10 @@
         NSData *imageData = [[NSData alloc] initWithContentsOfURL:imageURL];
         UIImage *image = [UIImage imageWithData:imageData];
         UIImage *resizedImage = [image resizedImageToWidth:132 andHeight:132];
+        
+        linkedInImage = resizedImage;
+        [self.collectionView reloadData];
+        
         [self.imageView setImage:resizedImage];
         self.imageView.layer.cornerRadius = 33;
         self.imageView.layer.masksToBounds = YES;
@@ -264,6 +271,8 @@
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     
+    //[self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"ProfileCell"];
+    
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -272,14 +281,6 @@
     if (self) {
     }
     return self;
-}
-
-- (void)dealloc
-{
-    [_imageView release];
-    [_logoutButton release];
-    [_collectionView release];
-    [super dealloc];
 }
 
 - (void)didReceiveMemoryWarning
@@ -310,10 +311,25 @@
 }
 // 3
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    ProfileCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    ProfileCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"ProfileCell" forIndexPath:indexPath];
+    //cell = [[ProfileCell alloc] initWithName:@"test" image:nil title:@"test" keywords:@"test"];
+    //cell = [[ProfileCell alloc] initWithName:@"Paul" image:linkedInImage title:@"title" keywords:@"Obj-c"];
     
-    cell.backgroundColor = [UIColor whiteColor];
+    cell.nameLabel.text = @"Paul Wong";
+    [cell.profileImageView setImage:linkedInImage];
+    cell.titleLabel.text = @"Student Again!";
+    cell.keywordsLabel.text = @"Obj-C, Ruby on Rails";
+     
+    cell.backgroundColor = [UIColor lightGrayColor];
     return cell;
+}
+
+#pragma mark – UICollectionViewDelegateFlowLayout
+
+
+- (UIEdgeInsets)collectionView:
+(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return UIEdgeInsetsMake(5, 5, 5, 5);
 }
 
 @end
