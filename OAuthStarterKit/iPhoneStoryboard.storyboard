@@ -61,16 +61,6 @@
                                 <rect key="frame" x="19" y="74" width="66" height="66"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U6A-DH-kKt">
-                                <rect key="frame" x="57" y="482" width="200" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Sign in via LinkedIn">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="button_TouchUp:" destination="ehm-3e-c7Z" eventType="touchUpInside" id="dOi-Zz-bbQ"/>
-                                </connections>
-                            </button>
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wWn-7p-Qv4">
                                 <rect key="frame" x="0.0" y="147" width="320" height="421"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -83,57 +73,48 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ProfileCell" id="r2h-TI-kxB" customClass="ProfileCell">
-                                        <rect key="frame" x="0.0" y="0.0" width="150" height="195"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="155" height="210"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="150" height="195"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="155" height="210"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bOX-qS-pVL">
-                                                    <rect key="frame" x="10" y="33" width="130" height="120"/>
+                                                    <rect key="frame" x="12" y="26" width="131" height="130"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Valentin Perez" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8pl-Xg-Svw">
-                                                    <rect key="frame" x="25" y="11" width="100" height="21"/>
+                                                    <rect key="frame" x="27" y="5" width="100" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Brown Student To Be" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1xK-pc-fW1">
-                                                    <rect key="frame" x="10" y="148" width="130" height="21"/>
+                                                    <rect key="frame" x="12" y="155" width="130" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Obj-C Guru, Ruby on Rails, Blah Blah" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="130" translatesAutoresizingMaskIntoConstraints="NO" id="tHn-PS-agV">
-                                                    <rect key="frame" x="10" y="158" width="130" height="42"/>
+                                                    <rect key="frame" x="12" y="168" width="130" height="36"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <size key="customSize" width="150" height="195"/>
+                                        <color key="backgroundColor" white="1" alpha="0.25" colorSpace="calibratedWhite"/>
+                                        <size key="customSize" width="155" height="210"/>
                                         <connections>
                                             <outlet property="keywordsLabel" destination="tHn-PS-agV" id="ij4-dz-aa8"/>
                                             <outlet property="nameLabel" destination="8pl-Xg-Svw" id="IN4-Ne-Jpi"/>
                                             <outlet property="profileImageView" destination="bOX-qS-pVL" id="4PB-Hi-Xc6"/>
                                             <outlet property="titleLabel" destination="1xK-pc-fW1" id="7xG-iJ-6hM"/>
                                         </connections>
-                                    </collectionViewCell>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="8ht-N7-aGW">
-                                        <rect key="frame" x="170" y="0.0" width="150" height="195"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="150" height="195"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <size key="customSize" width="150" height="195"/>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
@@ -160,31 +141,54 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ip4-7b-cvS">
-                                <rect key="frame" x="51" y="452" width="219" height="35"/>
+                                <rect key="frame" x="62" y="449" width="191" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" image="linkedin_button_double.png">
+                                <state key="normal" image="linkedin_button_double 2.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="button_TouchUp:" destination="ehm-3e-c7Z" eventType="touchUpInside" id="qLb-r6-R2X"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LL0-YR-Ec7">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RCl-54-qsg">
+                                <rect key="frame" x="111" y="250" width="99" height="99"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" image="join_not_pressed.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted" image="join_pressed.png"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="CONNECT" id="1NK-P3-7j2">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="wCm-Xw-Jr8"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="38Y-4J-8DD"/>
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="wCm-Xw-Jr8">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="logout:" destination="ehm-3e-c7Z" id="1d3-r8-wq4"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="38Y-4J-8DD">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="refresh:" destination="ehm-3e-c7Z" id="4p2-qQ-mM1"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="addInterestsButton" destination="diX-M7-AkF" id="d0y-sC-ITk"/>
-                        <outlet property="button" destination="U6A-DH-kKt" id="hWF-Ek-U47"/>
+                        <outlet property="button" destination="ip4-7b-cvS" id="fFC-hW-Eyg"/>
                         <outlet property="collectionView" destination="wWn-7p-Qv4" id="XK3-6c-gT1"/>
                         <outlet property="editInterestsButton" destination="9b1-9d-KJU" id="ds9-sN-QxB"/>
                         <outlet property="headline" destination="FaO-hu-8xz" id="3Rf-S9-QZU"/>
                         <outlet property="imageView" destination="sKv-gT-o7q" id="8Gl-9U-b6p"/>
+                        <outlet property="joinButton" destination="RCl-54-qsg" id="1Uk-tX-xmC"/>
                         <outlet property="logoutButton" destination="wCm-Xw-Jr8" id="bT9-Lg-wbk"/>
                         <outlet property="name" destination="h6E-0o-Clg" id="wmD-ob-BWT"/>
                         <outlet property="refreshButton" destination="38Y-4J-8DD" id="mkd-MQ-XwK"/>
@@ -216,7 +220,9 @@
     </scenes>
     <resources>
         <image name="home_background_image.png" width="640" height="1136"/>
-        <image name="linkedin_button_double.png" width="538" height="70"/>
+        <image name="join_not_pressed.png" width="188" height="188"/>
+        <image name="join_pressed.png" width="188" height="188"/>
+        <image name="linkedin_button_double 2.png" width="383" height="70"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

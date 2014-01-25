@@ -24,6 +24,8 @@
 @property (retain, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (retain, nonatomic) IBOutlet UIBarButtonItem *logoutButton;
 @property (nonatomic, retain) IBOutlet UIButton *button;
+@property (strong, nonatomic) IBOutlet UIButton *joinButton;
+
 @property (nonatomic, retain) IBOutlet UIButton *postButton;
 @property (nonatomic, retain) IBOutlet UILabel *postButtonLabel;
 @property (nonatomic, retain) IBOutlet UILabel *name;
@@ -42,6 +44,8 @@
 - (IBAction)button_TouchUp:(UIButton *)sender;
 - (void)profileApiCall;
 - (void)networkApiCall;
+- (IBAction)refresh:(id)sender;
+- (IBAction)logout:(id)sender;
 
 - (IBAction)editKeywords:(id)sender;
 

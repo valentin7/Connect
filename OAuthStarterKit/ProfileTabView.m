@@ -26,9 +26,11 @@
             status, postButton, postButtonLabel,
             statusTextView, updateStatusLabel;
 
+/*
 -(UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
+ */
 
 - (IBAction)button_TouchUp:(UIButton *)sender
 {    
@@ -86,7 +88,12 @@
     if ( profile )
     {
         self.button.hidden = YES;
+        self.joinButton.hidden = YES;
         self.collectionView.hidden = NO;
+        self.imageView.hidden = NO;
+        self.name.hidden = NO;
+        self.headline.hidden = NO;
+        self.status.hidden = NO;
         NSArray *imageArray = [profile objectForKey:@"values"];
         
         NSString *url = [imageArray objectAtIndex:0];
@@ -253,6 +260,28 @@
     
 }
 
+- (IBAction)refresh:(id)sender {
+    self.usersOutThere = [[NSMutableArray alloc] init];
+    self.userImages = [[NSMutableArray alloc] init];
+    self.dictArray = [[NSMutableArray alloc] init];
+    [self profileImageApiCall];
+}
+
+- (IBAction)logout:(id)sender {
+    self.name.hidden = YES;
+    self.headline.hidden = YES;
+    self.status.hidden = YES;
+    self.collectionView.hidden = YES;
+    self.imageView.hidden = YES;
+    self.editInterestsButton.hidden = YES;
+    self.addInterestsButton.hidden = YES;
+    self.joinButton.hidden = NO;
+    self.button.hidden = NO;
+    self.navigationItem.leftBarButtonItem = nil;
+    self.navigationItem.rightBarButtonItem = nil;
+    
+}
+
 - (IBAction)editKeywords:(id)sender
 {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Edit Your Interests"
@@ -297,6 +326,12 @@
             self.editInterestsButton.hidden = !self.addInterestsButton.hidden;
             
         }];
+        
+        
+        self.usersOutThere = [[NSMutableArray alloc] init];
+        self.userImages = [[NSMutableArray alloc] init];
+        self.dictArray = [[NSMutableArray alloc] init];
+        [self profileImageApiCall];
         
     }
 }
@@ -399,7 +434,7 @@
     
     self.addInterestsButton.hidden = YES;
     self.editInterestsButton.hidden = YES;
-    [self setNeedsStatusBarAppearanceUpdate];
+    //[self setNeedsStatusBarAppearanceUpdate];
     
     //[self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"wifi_connect"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top_blank_bar"] forBarMetrics:UIBarMetricsDefault];
@@ -417,7 +452,7 @@
     wifiLabel.textColor = [UIColor whiteColor];
     [self.navigationItem.titleView addSubview:wifiLabel];
     
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    //[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -468,6 +503,11 @@
     
     cell.profileImageView.layer.cornerRadius = 4.0f;
     cell.profileImageView.layer.masksToBounds = YES;
+    
+    cell.layer.cornerRadius = 10.0f;
+    cell.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    cell.layer.borderWidth = 1.0f;
+    
     cell.nameLabel.text = user.name;
     cell.titleLabel.text = user.title;
     cell.keywordsLabel.text = user.keywords[0];
@@ -482,7 +522,7 @@
 
 - (UIEdgeInsets)collectionView:
 (UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(2.5, 5, 2.5, 5);
+    return UIEdgeInsetsMake(2, 5, 0, 5);
 }
 
 - (id)fetchSSIDInfo {
@@ -550,7 +590,6 @@
         NSMutableDictionary *userInfoDict = [[NSMutableDictionary alloc] init];
         for (int index = 0; index < [objectIdArray count]; index ++) {
             if ([objectIdArray[index] isEqualToString:user.objectId]) {
-                NSLog(@"index for self.usersOutThere: %d", index);
                 [userInfoDict setObject:user forKey:@"user"];
                 [userInfoDict setObject:rankScoreArray[index] forKey:@"rankScore"];
             }

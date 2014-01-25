@@ -63,6 +63,7 @@
 		D4826B5018944DEF00D51AA5 /* wifi_connect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D4826B4E18944DEF00D51AA5 /* wifi_connect@2x.png */; };
 		D4826B5118944DEF00D51AA5 /* wifi_connect.png in Resources */ = {isa = PBXBuildFile; fileRef = D4826B4F18944DEF00D51AA5 /* wifi_connect.png */; };
 		D4826B531894522900D51AA5 /* linkedin_button_double.png in Resources */ = {isa = PBXBuildFile; fileRef = D4826B521894522900D51AA5 /* linkedin_button_double.png */; };
+		D4826B551894561800D51AA5 /* linkedin_button_double 2.png in Resources */ = {isa = PBXBuildFile; fileRef = D4826B541894561800D51AA5 /* linkedin_button_double 2.png */; };
 		D4A24DC11893AD260055FFFB /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A24DAC1893AD260055FFFB /* AFHTTPClient.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D4A24DC21893AD260055FFFB /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A24DAE1893AD260055FFFB /* AFHTTPRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D4A24DC31893AD260055FFFB /* AFImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A24DB01893AD260055FFFB /* AFImageCache.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -187,6 +188,7 @@
 		D4826B4E18944DEF00D51AA5 /* wifi_connect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wifi_connect@2x.png"; sourceTree = "<group>"; };
 		D4826B4F18944DEF00D51AA5 /* wifi_connect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wifi_connect.png; sourceTree = "<group>"; };
 		D4826B521894522900D51AA5 /* linkedin_button_double.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = linkedin_button_double.png; sourceTree = "<group>"; };
+		D4826B541894561800D51AA5 /* linkedin_button_double 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "linkedin_button_double 2.png"; path = "raw_assets/linkedin_button_double 2.png"; sourceTree = SOURCE_ROOT; };
 		D4A24DAB1893AD260055FFFB /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		D4A24DAC1893AD260055FFFB /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		D4A24DAD1893AD260055FFFB /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -468,6 +470,7 @@
 		D4AF0FA118938CC700E57C8A /* raw_assets */ = {
 			isa = PBXGroup;
 			children = (
+				D4826B541894561800D51AA5 /* linkedin_button_double 2.png */,
 				D4826B521894522900D51AA5 /* linkedin_button_double.png */,
 				D4826B4E18944DEF00D51AA5 /* wifi_connect@2x.png */,
 				D4826B4F18944DEF00D51AA5 /* wifi_connect.png */,
@@ -614,6 +617,7 @@
 				D4AF0FC618938CC700E57C8A /* ok_button_pressed.png in Resources */,
 				659410F31353A39900826837 /* linkedInBluebutton-highlight.png in Resources */,
 				D4826B5018944DEF00D51AA5 /* wifi_connect@2x.png in Resources */,
+				D4826B551894561800D51AA5 /* linkedin_button_double 2.png in Resources */,
 				D4AF0FCE18938CC700E57C8A /* connect_home.png in Resources */,
 				D4AF0FC518938CC700E57C8A /* ok_button_not_pressed.png in Resources */,
 				D4826B531894522900D51AA5 /* linkedin_button_double.png in Resources */,
