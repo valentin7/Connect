@@ -20,6 +20,7 @@
 
 @property (strong, nonatomic) IBOutlet UIButton *addInterestsButton;
 @property (strong, nonatomic) IBOutlet UIButton *editInterestsButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
 @property (retain, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (retain, nonatomic) IBOutlet UIBarButtonItem *logoutButton;
 @property (nonatomic, retain) IBOutlet UIButton *button;
@@ -34,6 +35,9 @@
 @property (nonatomic, retain) OAuthLoginView *oAuthLoginView;
 @property (nonatomic, strong) NSMutableArray *usersOutThere;
 @property (nonatomic, strong) NSMutableArray *userImages;
+
+// An mutable array of dictionary (containing objectId as key and ranking score as value)
+@property (nonatomic, strong) NSMutableArray *dictArray;
 
 - (IBAction)button_TouchUp:(UIButton *)sender;
 - (void)profileApiCall;

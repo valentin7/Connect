@@ -26,6 +26,10 @@
             status, postButton, postButtonLabel,
             statusTextView, updateStatusLabel;
 
+-(UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
 - (IBAction)button_TouchUp:(UIButton *)sender
 {    
     oAuthLoginView = [[OAuthLoginView alloc] initWithNibName:nil bundle:nil];
@@ -114,30 +118,7 @@
                 
                 self.usersOutThere = [[NSMutableArray alloc] initWithArray:[mutableUsers allObjects]];
                 
-                /*
-                NSMutableArray *mutableArray = [self updateUsersAlgorithm];
-                for (NSDictionary *dict in mutableArray) {
-                    for (NSString* key in [dict allKeys]) {
-                        NSLog(@"key: %@, value: %@", key, [dict objectForKey:key]);
-                    }
-                }
-                 */
-                
-                // Add MBProgressHUD as indicator!
-                MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-                
-                HUD.delegate = self;
-                HUD.labelText = @"Loading...";
-                
-                [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-                    // Do something...
-                    [self loadImagesIntoArray];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [MBProgressHUD hideHUDForView:self.view animated:YES];
-                        [self.collectionView reloadData];
-                    });
-                });
+                [self updateUsersAlgorithm]; // then self.dictArray is loaded!
                 
             }];
             
@@ -302,16 +283,6 @@
             self.addInterestsButton.hidden = [[self.status.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0 ? NO : YES;
             self.editInterestsButton.hidden = !self.addInterestsButton.hidden;
             
-            [self updateUsersAlgorithm];
-            
-            /*
-            for (NSDictionary *dict in mutableArray) {
-                for (NSString* key in [dict allKeys]) {
-                    NSLog(@"key: %@, value: %@", key, [dict objectForKey:key]);
-                }
-            }
-             */
-            
         }];
         
     }
@@ -404,16 +375,24 @@
 {
     [super viewDidLoad];
     self.navigationItem.leftBarButtonItem = nil;
+    self.navigationItem.rightBarButtonItem = nil;
     
     self.collectionView.hidden = YES;
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     
     self.userImages = [[NSMutableArray alloc] initWithCapacity:10];
+    self.dictArray = [[NSMutableArray alloc] init];
     
     self.addInterestsButton.hidden = YES;
     self.editInterestsButton.hidden = YES;
+    [self setNeedsStatusBarAppearanceUpdate];
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top_blank_bar"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"wifi_connect_bar"] forBarMetrics:UIBarMetricsDefault];
 
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -469,7 +448,7 @@
     cell.keywordsLabel.text = user.keywords[0];
     ///[cell.keywordsLabel sizeToFit];
     cell.keywordsLabel.textAlignment = NSTextAlignmentCenter;
-    cell.backgroundColor = [UIColor lightGrayColor];
+    //cell.backgroundColor = [UIColor lightGrayColor];
     return cell;
 
 }
@@ -498,25 +477,21 @@
     [BTIUser getCurrentUserInBackgroundWithBlock:^(BTIUser *user, NSError *error) {
         currentUser = user;
         NSString *currentUserKeywords = currentUser.keywords[0];
-        NSMutableArray *dictArray = [self getRankingDictArray:currentUserKeywords];
-        for (NSDictionary *dict in dictArray) {
-            for (NSString* key in [dict allKeys]) {
-                NSLog(@"key: %@, value: %@", key, [dict objectForKey:key]);
-            }
-        }
+        [self getRankingDictArray:currentUserKeywords];
+        
     }];
 }
 
-- (NSMutableArray *)getRankingDictArray:(NSString *)keywords
+- (void)getRankingDictArray:(NSString *)keywords
 {
     NSMutableArray *dictArray = [[NSMutableArray alloc] init];
     NSArray *currentUserKeywordsArray = [self stringToArray:keywords];
-    NSLog(@"current user keywords array: %@", currentUserKeywordsArray);
+    // NSLog(@"current user keywords array: %@", currentUserKeywordsArray);
     for (BTIUser *user in self.usersOutThere) {
         NSMutableDictionary *userRankingDict = [[NSMutableDictionary alloc] init];
         [userRankingDict setObject:[NSNumber numberWithInt:0] forKey:user.objectId];
         NSArray *userKeywordsArray = [self stringToArray:user.keywords[0]];
-        NSLog(@"user keywords array: %@", userKeywordsArray);
+        // NSLog(@"user keywords array: %@", userKeywordsArray);
         for (NSString *keywordStr in userKeywordsArray) {
             
             for (NSString *currentUserKeywordStr in currentUserKeywordsArray) {
@@ -528,7 +503,80 @@
         }
         [dictArray addObject:userRankingDict];
     }
-    return dictArray;
+    self.dictArray = dictArray;
+    
+    // Sort self.usersOutThere according to self.dictArray
+    
+   /* NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"interest"  ascending:YES];
+    stories=[stories sortedArrayUsingDescriptors:[NSArray arrayWithObjects:descriptor,nil]];
+    recent = [stories copy];*/
+    
+    
+
+    NSMutableArray *objectIdArray = [[NSMutableArray alloc] init];
+    NSMutableArray *rankScoreArray = [[NSMutableArray alloc] init];
+    for (NSDictionary *dict in self.dictArray) {
+        [objectIdArray addObjectsFromArray:[dict allKeys]];
+        [rankScoreArray addObject:[dict objectForKey:[[dict allKeys] objectAtIndex:0]]];
+    }
+    
+    NSMutableArray *userWithRankScoreArray = [[NSMutableArray alloc] init];
+    for (BTIUser *user in self.usersOutThere) {
+        NSMutableDictionary *userInfoDict = [[NSMutableDictionary alloc] init];
+        for (int index = 0; index < [objectIdArray count]; index ++) {
+            if ([objectIdArray[index] isEqualToString:user.objectId]) {
+                NSLog(@"index for self.usersOutThere: %d", index);
+                [userInfoDict setObject:user forKey:@"user"];
+                [userInfoDict setObject:rankScoreArray[index] forKey:@"rankScore"];
+            }
+        }
+        [userWithRankScoreArray addObject:userInfoDict];
+    }
+    
+    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"rankScore" ascending:NO];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:descriptor];
+    NSArray *sortedArray = [userWithRankScoreArray sortedArrayUsingDescriptors:sortDescriptors];
+
+    /*
+    for (NSDictionary *dict in sortedArray) {
+        for (NSString* key in [dict allKeys]) {
+            NSLog(@"key: %@, value: %@", key, [dict objectForKey:key]);
+        }
+    }
+     */
+    
+    NSMutableArray *sortedUsersOutThere = [[NSMutableArray alloc] init];
+    for (NSDictionary *dict in sortedArray) {
+        BTIUser *user = [dict objectForKey:@"user"];
+        [sortedUsersOutThere addObject:user];
+    }
+    
+    self.usersOutThere = sortedUsersOutThere;
+    
+    /*
+    for (NSDictionary *dict in self.usersOutThere) {
+        for (NSString* key in [dict allKeys]) {
+            NSLog(@"key: %@, value: %@", key, [dict objectForKey:key]);
+        }
+    }
+     */
+    
+    // Add MBProgressHUD as indicator!
+    MBProgressHUD *HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    
+    HUD.delegate = self;
+    HUD.labelText = @"Loading...";
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        // Do something...
+        [self loadImagesIntoArray];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [self.collectionView reloadData];
+        });
+    });
+    
 }
 
 - (NSMutableArray *)stringToArray:(NSString *)keywords
