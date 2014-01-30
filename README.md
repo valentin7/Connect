@@ -14,3 +14,4 @@ The app displays a list of users on the same Wi-Fi network, complete with a pict
 ![Connect Signin](https://raw.github.com/valentin7/Connect/master/presentation/final/Presentation-03.png)
 
 ![Connect Results](https://raw.github.com/valentin7/Connect/master/presentation/final/Presentation_result_screen.gif)
+
